@@ -1,0 +1,52 @@
+create table USERS (
+	USERNAME varchar2(100) , 
+	First_Name varchar2(100), 
+	Last_Name varchar2(100),
+	Password varchar2(100) check(length(Password) >= 8), 
+	address varchar2(100), 
+	locality varchar2(100), 
+	city varchar2(100), 
+	primary key(USERNAME)
+	);  
+
+CREATE TABLE ORDERS (
+	OID int NOT NULL AUTO_INCREMENT, 
+	UserName varchar(100), 
+	RID int, 
+	FOREIGN KEY(UserName) REFERENCES users(USERNAME), 
+	FOREIGN KEY(RID) REFERENCES restaurants(RID), 
+	PRIMARY KEY(OID)
+	);
+
+CREATE TABLE ORDER_DETAILS (
+	OID int NOT NULL, 
+	RID int, 
+	foodname varchar(100), 
+	quantity int, 
+	price int, 
+	FOREIGN KEY(RID) REFERENCES restaurants(RID), 
+	FOREIGN KEY(OID) REFERENCES orders(OID)
+	);
+
+CREATE TABLE cart (
+	RID int, 
+	Name varchar(100), 
+	price int, 
+	Quantity int,  
+	FOREIGN KEY(RID) REFERENCES menu(RID)
+	);
+
+CREATE TABLE MENU(
+	RID int,
+	Name varchar(100),
+	Price int,
+	foreign key(RID) references restaurants(RID)
+);
+
+CREATE TABLE Restaurants(
+	RID int,
+	Res_Name varchar(100),
+	Locality varchar(100),
+	City varchar(100),
+	primary key(RID)
+);
